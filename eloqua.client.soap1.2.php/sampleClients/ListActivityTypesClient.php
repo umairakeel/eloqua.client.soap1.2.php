@@ -22,11 +22,11 @@ echo '<div align="Center">
 		</tr>
 		</table>
 		</div>';
-session_start();
-if(isSet($_SESSION['userName']) && isset($_SESSION['password']) && isset($_SESSION['endPointURL']))
-{
-try
-{
+	session_start();
+	if(isSet($_SESSION['userName']) && isset($_SESSION['password']) && isset($_SESSION['endPointURL']))
+	{
+	try
+	{
 	chdir('../');
 	$wsdl = getcwd().'/wsdl/EloquaServiceV1.2.wsdl';
 	 
@@ -64,16 +64,16 @@ try
 	echo '</div>';
 	echo '</div>';
 	}
-}
-catch (Exception $e)
-{
-echo '<table><tr><td>Error Occured</td><td>Error Message : '.$e->getMessage().'</td></tr></table>';
-echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
-}
-}
-else
-{
-echo '<h2>Login Credentials not available. Please Press the Back Button to set login Credentials.<h2>'; 
-echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
-}
+	}
+	catch (Exception $e)
+	{
+	echo '<table><tr><td>Error Occured</td><td>Error Message : '.$e->getMessage().'</td></tr></table>';
+	echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
+	}
+	}
+	else
+	{
+	echo '<h2>Login Credentials not available. Please Press the Back Button to set login Credentials.<h2>'; 
+	echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
+	}
 ?>

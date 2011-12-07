@@ -30,8 +30,8 @@ if(isSet($_SESSION['userName']) && isset($_SESSION['password']) && isset($_SESSI
 {
 if(isSet($_GET['entityTypeName']) && isSet($_GET['entityType']) && isSet($_GET['entity_id']) && isSet($_GET['assetTypeName']) && isSet($_GET['assetType']) && isSet($_GET['asset_id']) )
 {
-try
-{
+	try
+	{
 	chdir('../');
 	$wsdl = getcwd().'/wsdl/EloquaServiceV1.2.wsdl';
 	# Fetching Client Credentials from Request
@@ -78,17 +78,15 @@ try
 	echo '<br>';
 	echo '<form action="RemoveGroupMembershipClient.php" method="GET"><div><button class="btn success"  type="submit" value="e">Back</button></div></form>';
 	echo '<br>';
-	
-	
-}
-catch (Exception $e)
-{
-$response = 'Something went wrong...'.$e->getMessage();
-print $response;
-}
-}
-else
-{
+	}
+	catch (Exception $e)
+	{
+	echo '<table><tr><td>Error Occured</td><td>Error Message : '.$e->getMessage().'</td></tr></table>';
+	echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
+	}
+	}
+	else
+	{
 	echo '<form action="RemoveGroupMembershipClient.php">';
 	echo '<table class="bordered-table">';
 	echo '<tr>
@@ -101,13 +99,12 @@ else
 	</table>';
 	echo '<input type="Submit" Value="Remove Group Membership">';
 	echo '</form>';
-	
-	
 	echo '<form action="../index.php" method="GET"><div><button class="btn success"  type="submit">Back</button></div></form>';
-}
-}
-else
-{
-echo 'Login Credentials not available. Please Press the Back Button to set login Credentials.'; 
-}
+	}
+	}
+	else
+	{
+	echo '<h2>Login Credentials not available. Please Press the Back Button to set login Credentials.<h2>'; 
+	echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
+	}
 ?>

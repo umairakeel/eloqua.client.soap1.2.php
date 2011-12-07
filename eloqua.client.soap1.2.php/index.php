@@ -2,6 +2,7 @@
 <Title>Eloqua Sample PHP Client</Title>
 <link rel="stylesheet" href="bootstrap.css" type="text/css">
 <link rel="stylesheet" href="style.css" type="text/css">
+<div class="container">
 <?php
 	session_start(); // start up your PHP session! 
 	if(isSet($_GET['userName']) && isSet($_GET['password']) && isSet($_GET['endPointURL']))
@@ -13,7 +14,9 @@
 	if(isSet($_GET['clear']))
 	{
 	unset($_GET);
-	unset($_SESSION);
+	session_unset();
+    session_destroy();
+    $_SESSION = array();
 	}
 ?>
 <body>
@@ -115,8 +118,8 @@ Entity Meta Data Services
 <td>
    <ul class="pills">
    <li><a href="sampleClients/ListEntityTypesClient.php">List Entity Types</a></li>
-   <li><a href="#">Describe Entity Type</a></li>
-   <li><a href="#">Describe Entity</a></li>
+   <li><a href="sampleClients/DescribeEntityTypeClient.php">Describe Entity Type</a></li>
+   <li><a href="sampleClients/DescribeEntityClient.php">Describe Entity</a></li>
    </ul>
 </td>
 </tr>
@@ -129,8 +132,8 @@ Asset Meta Data Services
 <td>
    <ul class="pills">
    <li><a href="sampleClients/ListAssetTypesClient.php">List Asset Types</a></li>
-   <li><a href="#">Describe Asset Type</a></li>
-   <li><a href="#">Describe Asset</a></li>
+   <li><a href="sampleClients/DescribeAssetTypeClient.php">Describe Asset Type</a></li>
+   <li><a href="sampleClients/DescribeAssetClient.php">Describe Asset</a></li>
    </ul>
 </td>
 </tr>
@@ -143,9 +146,7 @@ Entity Operational Services
 <td>
    <ul class="pills">
    <li><a href="sampleClients/CreateEntityClient.php">Create Entity</a></li>
-   <li><a href="#">Retreive Entity</a></li>
-   <li><a href="#">Update Entity</a></li>
-   <li><a href="#">Delete Entity</a></li>
+   <li><a href="sampleClients/RetreiveEntityClient.php">Retreive Entity</a></li>
    <li><a href="sampleClients/QueryEntityClient.php">Query Entity</a></li>
    </ul>
 </td>
@@ -159,9 +160,8 @@ Asset Operational Services
 <td>
    <ul class="pills">
    <li><a href="sampleClients/CreateAssetClient.php">Create Asset</a></li>
-   <li><a href="#">Retreive Asset</a></li>
-   <li><a href="#">Update Asset</a></li>
-   <li><a href="#">Delete Asset</a></li>
+   <li><a href="sampleClients/RetreiveAssetClient.php">Retreive Asset</a></li>
+   <li><a href="sampleClients/UpdateAssetClient.php">Update Asset</a></li>
    </ul>
 </td>
 </tr>
@@ -174,10 +174,8 @@ Activity Services
 <td>
    <ul class="pills">
    <li><a href="sampleClients/ListActivityTypesClient.php">List Activity Types</a></li>
-   <li><a href="#">Describe Activity Type</a></li>
-   <li><a href="#">Describe Activity</a></li>
-   <li><a href="#">Get Activities</a></li>
-   <li><a href="#">Get Activities for Recepiants</a></li>
+   <li><a href="sampleClients/DescribeActivityTypeClient.php">Describe Activity Type</a></li>
+   <li><a href="sampleClients/DescribeActivityClient.php">Describe Activity</a></li>
    </ul>
 </td>
 </tr>
@@ -199,5 +197,6 @@ Group Membership Services
 </tr>
 <tr>
 </table>
+</div>   
 </body>
 </html>

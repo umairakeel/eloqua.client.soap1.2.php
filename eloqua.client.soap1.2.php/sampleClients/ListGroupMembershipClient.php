@@ -16,7 +16,6 @@ echo  '<div align="Center">
 
 <tr>
 <td><h3>PHP Client Code Snippet : <h3></td><td> 
-
 <b><br>$client = new EloquaSoapClient($wsdl, $userName, $password,$endPointURL); </br>
 <br>$param = new ListGroupMembership($dynamicEntity)</br>
 <br>$grpMemberResponse = $client->ListGroupMembership($param);</br>
@@ -29,11 +28,10 @@ echo  '<div align="Center">
 session_start();
 if(isSet($_SESSION['userName']) && isset($_SESSION['password']) && isset($_SESSION['endPointURL']))
 {
-
-if(isSet($_GET['email']))
-{
-try
-{
+	if(isSet($_GET['email']))
+	{
+	try
+	{
 	chdir('../');
 	$wsdl = getcwd().'/wsdl/EloquaServiceV1.2.wsdl';
 	# Fetching Client Credentials from Request
@@ -60,43 +58,44 @@ try
 	if(is_array($dynamicAssetArr))
 	foreach ($dynamicAssetArr as $key => $dynamicAsset)
 	{
-	$assetType = $dynamicAsset->AssetType;
-	$fieldValueCollection = $dynamicAsset->FieldValueCollection;
-	echo '<td>'.$assetType->ID.'</td><td>'.$assetType->Name.'</td><td>'.$assetType->Type.'</td>';
-	echo '<td>';
+		$assetType = $dynamicAsset->AssetType;
+		$fieldValueCollection = $dynamicAsset->FieldValueCollection;
+		echo '<td>'.$assetType->ID.'</td><td>'.$assetType->Name.'</td><td>'.$assetType->Type.'</td>';
+		echo '<td>';
 	foreach ($fieldValueCollection as $fvcKey => $fv)
 	{
-	echo print_r($fv);
+		echo print_r($fv);
 	}
 	echo '</td></tr>';
-	
 	}
 	else
 	{
-	print_r($dynamicAssetArr);
+		print_r($dynamicAssetArr);
 	}
 	echo'</table>';	
 	}
 	else
 	{
-	echo 'Unable to fetch entity';
+		echo 'Unable to fetch entity';
 	}
-}
-catch (Exception $e)
-{
-$response = 'Something went wrong...'.$e->getMessage();
-print $response;
-}
 	echo '<br>';
 	echo '<br>';
 	echo '<form action="ListGroupMembershipClient.php" method="GET"><div><button class="btn success"  type="submit" value="e">Back</button></div></form>';
+	}
+	catch (Exception $e)
+	{
+	echo '<table><tr><td>Error Occured</td><td>Error Message : '.$e->getMessage().'</td></tr></table>';
+	echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
+	}
+	
 	echo '</div>';
 	echo '</div>';
 
-}
-else
-{	echo '<form action="ListGroupMembershipClient.php">';
-	echo '<tableclass="bordered-table">';
+	}
+	else
+	{	
+	echo '<form action="ListGroupMembershipClient.php">';
+	echo '<table class="bordered-table">';
 	echo '<tr><td>Email Address : </td>
 	<td><input type ="Text" name="email"></input></td>
 	<td><input type="Submit" Value="Query"></td>
@@ -104,11 +103,12 @@ else
 	</tr>';
 	echo '</table>';
 	echo '<form action="../index.php" method="GET"><div><button class="btn success"  type="submit">Back</button></div></form>';
-}
-}
-else
-{
-echo 'Login Credentials not available. Please Press the Back Button to set login Credentials.'; 
-}
-echo '</div>';
+	}
+	}
+	else
+	{
+	echo '<h2>Login Credentials not available. Please Press the Back Button to set login Credentials.<h2>'; 
+	echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
+	}
+	echo '</div>';
 ?>

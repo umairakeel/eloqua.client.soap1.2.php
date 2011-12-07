@@ -158,7 +158,6 @@ class EloquaSOAPClient extends SoapClient
 	parent::__construct($wsdl,$wsdl_options);
 	parent::__setSoapHeaders(array($soapVarWsHeader));
 	parent::__setLocation($end_pointURL);
-	ini_set("soap.wsdl_cache_enabled", "0");
 
 	}
 

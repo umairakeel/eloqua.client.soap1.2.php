@@ -128,16 +128,15 @@ try
 }
 catch (Exception $e)
 {
-	$response = 'Something went wrong...'.$e->getMessage();
-	print $response;
+	echo '<table><tr><td>Error Occured</td><td>Error Message : '.$e->getMessage().'</td></tr></table>';
+	echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
 }
 }
 
 else
 {
-echo 'Login Credentials not available. Please Press the Back Button to set login Credentials.'; 
-echo '<form action="../index.php" method="GET"><div><button class="btn success"  type="submit">Back</button></div></form>';
-
+echo '<h2>Login Credentials not available. Please Press the Back Button to set login Credentials.<h2>'; 
+echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
 }
 
 

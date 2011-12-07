@@ -3,6 +3,7 @@
 include ('../EloquaSOAPClient.php');
 echo 	'<link rel="stylesheet" href="../bootstrap.css" type="text/css">';
 echo 	'<link rel="stylesheet" href="../style.css" type="text/css">';
+echo 	'<div class="container">';
 echo  	'<div align="Center">
 		<table class="bordered-table">
 		<tr>
@@ -14,7 +15,7 @@ echo  	'<div align="Center">
 		<tr>
 		<td><h3>PHP Client Code Snippet : <h3></td><td> 
 		<b><br>$client = new EloquaSoapClient($wsdl, $userName, $password,$endPointURL); </br>
-		<br>	$param = new DescribeEntity (new EntityType(0,'.$_GET["entity"].','.$_GET["entityType"].'));
+		<br>	$param = new DescribeEntity (new EntityType(0,entity,entityType));
 		<br>$describeEntityTypeResponse = $client->DescribeEntityType($param);</br>
 		</b>
 		</td>
@@ -24,6 +25,8 @@ echo  	'<div align="Center">
 session_start(); 
 if(isSet($_SESSION['userName']) && isset($_SESSION['password']) && isset($_SESSION['endPointURL']))
 {
+	if(isSet($_GET['entityType']) && isSet($_GET['entity']))
+	{
 	try
 	{
 	chdir('../');
@@ -75,12 +78,28 @@ if(isSet($_SESSION['userName']) && isset($_SESSION['password']) && isset($_SESSI
 	echo '</div>';
 	echo '</div>';
 	}
-}
-catch (Exception $e)
-{
-	echo '<table><tr><td>Error Occured</td><td>Error Message : '.$e->getMessage().'</td></tr></table>';
-	echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
-}
+	}
+	catch (Exception $e)
+	{
+		echo '<table><tr><td>Error Occured</td><td>Error Message : '.$e->getMessage().'</td></tr></table>';
+		echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
+	}
+	}
+	else
+	{
+				echo '<form action="DescribeEntityClient.php">';
+				echo '<table class="bordered-table">';
+				echo '<tr><td>Type : </td>
+				<td><input type ="Text" name="entityType"></input>e.g. Base</td></tr>
+				<tr><td>Entity Name : </td>
+				<td><input type ="Text" name="entity"></input>e.g. Contact</td>
+				</tr>
+				</table>
+				<div><button class="btn warning"  type="submit" value="e">Describe</button></div>
+				</form>';
+				echo '<br>';
+				echo '<form action="../index.php" method="GET"><div><button class="btn success"  type="submit">Back</button></div></form>';
+	}
 }
 else
 {

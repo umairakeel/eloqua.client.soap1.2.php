@@ -15,7 +15,7 @@ include ('../EloquaSOAPClient.php');
 		<tr>
 		<td><h3>PHP Client Code Snippet : <h3></td><td> 
 		<b><br>$client = new EloquaSoapClient($wsdl, $userName, $password,$endPointURL); </br>
-		<br>$param = new DescribeActivity (new ActivityType(0,'.$_GET["activity"].','.$_GET["activityType"].'));
+		<br>$param = new DescribeActivity (new ActivityType(0,activity,activityType));
 		<br>$describeActivityTypeResponse = $client->DescribeActivityType($param);</br>
 		</b>
 		</td>
@@ -25,6 +25,8 @@ include ('../EloquaSOAPClient.php');
 
 	session_start(); 
 	if(isSet($_SESSION['userName']) && isset($_SESSION['password']) && isset($_SESSION['endPointURL']))
+	{
+	if(isSet($_GET['activityType']) && isSet($_GET['activity']))
 	{
 	try
 	{
@@ -99,6 +101,23 @@ include ('../EloquaSOAPClient.php');
 	{	
 		echo '<table><tr><td>Error Occured</td><td>Error Message : '.$e->getMessage().'</td></tr></table>';
 		echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
+	}
+	}
+	else
+	{
+				echo '<form action="DescribeActivityClient.php">';
+				echo '<table class="bordered-table">';
+				echo '<tr><td>Type : </td>
+				<td><input type ="Text" name="activityType"></input>e.g. Web</td></tr>
+				<tr><td>Asset Name : </td>
+				<td><input type ="Text" name="activity"></input>e.g. WebVisit</td>
+				</tr>
+				</table>
+				<div><button class="btn warning"  type="submit" value="e">Describe</button></div>
+				</form>';
+				echo '<br>';
+				echo '<form action="../index.php" method="GET"><div><button class="btn success"  type="submit">Back</button></div></form>';
+	
 	}
 	}
 	else

@@ -43,7 +43,8 @@ catch (Exception $e)
 }
 else
 {
-echo 'Login Credentials not available. Please Press the Back Button to set login Credentials.'; 
+echo '<h2>Login Credentials not available. Please Press the Back Button to set login Credentials.<h2>'; 
+echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
 }
-echo '<a href="../index.php">Back</a>'; 
+
 ?>

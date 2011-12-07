@@ -14,11 +14,13 @@ include ('../EloquaSOAPClient.php');
 		  <td><h3>Service Description : </h3></td><td></td>
 	      </tr>
 		  <tr>
-		  <td><h3>PHP Client Code Snippet : <h3></td><td> 
-		  <b><br>$client = new EloquaSoapClient($wsdl, $userName, $password,$endPointURL); </br>
+		  <td><h3>PHP Client Code Snippet : <h3></td><td>
+		  <blockquote>
+		  <p><br>$client = new EloquaSoapClient($wsdl, $userName, $password,$endPointURL); </br>
 		  <br>$param = new AddGroupMember($dynamicEntity,$dynamicAsset);</br>
 		  <br>$response = $client->AddGroupMember($param);</br>
-		  </b>
+		  </p>
+		  </blockquote>
 		  </td>
 		  </tr>
 		  </table>
@@ -78,8 +80,8 @@ include ('../EloquaSOAPClient.php');
 			}
 			catch (Exception $e)
 			{
-			$response = 'Something went wrong...'.$e->getMessage();
-			print $response;
+				echo '<table><tr><td>Error Occured</td><td>Error Message : '.$e->getMessage().'</td></tr></table>';
+				echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
 			}
 		}
 		else
@@ -101,6 +103,7 @@ include ('../EloquaSOAPClient.php');
 	}
 	else
 	{
-		echo 'Login Credentials not available. Please Press the Back Button to set login Credentials.'; 
+		echo '<h2>Login Credentials not available. Please Press the Back Button to set login Credentials.<h2>'; 
+		echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
 	}
 ?>

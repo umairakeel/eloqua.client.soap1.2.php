@@ -7,10 +7,10 @@ include ('../EloquaSOAPClient.php');
 	echo  ' <div align="Center">
 		    <table class="bordered-table">
 		    <tr>
-		    <td><h3>Service Name : </h3></td> <td><h3> CreateAsset </h3></td>
+		    <td><h3>Service Name : </h3></td> <td><h3> UpdateAsset </h3></td>
 		    </tr>
 		    <tr>
-		    <td><h3>Service Description : </h3></td><td><h3>Sample is create a new Asset using the CreateAsset Service Call.<h3></td>
+		    <td><h3>Service Description : </h3></td><td><h3>Sample is update an Asset using the UpdateAsset Service Call.<h3></td>
 		    </tr>
 		    <tr>
 		    <td><h3>PHP Client Code Snippet : <h3></td><td> 
@@ -18,8 +18,8 @@ include ('../EloquaSOAPClient.php');
 			<br>$assetType = new AssetType(0, \'ContactList\', \'ContactGroup\');</br>
 			<br>$assetFields = new AssetFields(\'name\',$assetName);</br>
 			<br>$dynamicAssetFields = new DynamicAssetFields($entityFields);</br>
-			<br>$asset = new DynamicAsset($AssetType,$dynamicAssetFields,null);</br>
-			<br>$param = new CreateAsset(array($asset));</br></b>
+			<br>$asset = new DynamicAsset($AssetType,$dynamicAssetFields,$id);</br>
+			<br>$param = new UpdateAsset(array($asset));</br></b>
 			</td>
 			</tr>
 			</table>
@@ -44,33 +44,19 @@ include ('../EloquaSOAPClient.php');
 				$assetName = $_GET["assetName"];
 				$assetTypeName = $_GET['assetTypeName'];
 				$assetType = $_GET['assetType'];
+				$id = $_GET['id'];
 				$assetType = new AssetType(0, $assetTypeName, $assetType);
 				$assetFields = new AssetFields('name',$assetName);
 				$dynamicAssetFields = new DynamicAssetFields($assetFields);
-				$asset = new DynamicAsset($assetType,$dynamicAssetFields,'');
-				$param = new CreateAsset(array($asset));
+				$asset = new DynamicAsset($assetType,$dynamicAssetFields,$id);
+				$param = new UpdateAsset(array($asset));
 
-				# Invoke SOAP Request : CreateAsset ()
-				$response = $client->CreateAsset($param);
-				$createResultID = $response->CreateAssetResult->CreateAssetResult->ID;
-
-				if($createResultID > -1)
-				{
-					echo '<table class="bordered-table">';
-					echo '<tr><td>Asset Created Successfully : </td><td>'.$createResultID.'</td></tr>';
-					echo '</table>';
-					echo '<br>';
-					echo '<form action="CreateAssetClient.php" method="GET"><div><button class="btn success"  type="submit" value="e">Back</button></div></form>';
-					echo '<br>';
-				}
-				else
-				{
-					echo '<table class="bordered-table">';
-					echo '<tr><td>Error Occured while Creating account : </td><td>'. $response->CreateAssetResult->CreateAssetResult->Errors->Error->Message.'</td></tr>';
-					echo '</table>';
-					echo '<br>';
-					echo '<br>';
-				}
+				# Invoke SOAP Request : UpdateAsset ()
+				$response = $client->UpdateAsset($param);
+				
+				print_r($response);
+				echo '<br>';
+				echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
 			}
 			catch (Exception $e)
 			{
@@ -80,20 +66,23 @@ include ('../EloquaSOAPClient.php');
 		}
 		else
 		{
-		echo 	'<form action="CreateAssetClient.php">';
+		echo 	'<form action="UpdateAssetClient.php">';
 		echo 	'<table class="bordered-table">';
 		echo 	'<tr><td>Asset Type :</td>
 				<td><input type ="Text" name="assetType"></input> e.g. ContactGroup</td></tr>
 				<tr><td>Asset Type Name : </td><td> <input type ="Text" name="assetTypeName"></input>e.g. ContactList</td></tr>
-				<tr><td>Asset Name : </td><td> <input type ="Text" name="assetName"></input></td></tr>
+				<tr><td>Asset ID : </td><td> <input type ="Text" name="id"></input></td></tr>
+				<tr><td>Update Asset Name To : </td><td> <input type ="Text" name="assetName"></input></td></tr>
 				</tr></table> 
-				<div><button class="btn warning"  type="submit" value="e">Create</button></div>
+				<div><button class="btn warning"  type="submit" value="e">Update</button></div>
 				</form>';
 		echo 	'<form action="../index.php" method="GET"><div><button class="btn success"  type="submit">Back</button></div></form>';
 		}	
 	}	
 	else
 	{
+	echo '<h2>Login Credentials not available. Please Press the Back Button to set login Credentials.<h2>'; 
 	echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
+
 	}
 ?>

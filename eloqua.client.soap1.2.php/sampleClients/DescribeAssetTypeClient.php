@@ -15,7 +15,7 @@ echo    '<div align="Center">
 		<tr>
 		<td><h3>PHP Client Code Snippet : <h3></td><td> 
 		<b><br>$client = new EloquaSoapClient($wsdl, $userName, $password,$endPointURL); </br>
-		<br>$param = new DescribeAssetType('. $_GET["type"].'); 
+		<br>$param = new DescribeAssetType(type); 
 		<br>$describeAssetTypeResponse = $client->DescribeAssetType($param);</br>
 		</b>
 		</td>
@@ -26,6 +26,8 @@ echo    '<div align="Center">
 session_start(); 
 if(isSet($_SESSION['userName']) && isset($_SESSION['password']) && isset($_SESSION['endPointURL']))
 {
+	if(isSet($_GET['type']))
+	{
 	try
 	{
 	chdir('../');
@@ -76,6 +78,20 @@ if(isSet($_SESSION['userName']) && isset($_SESSION['password']) && isset($_SESSI
 	{
 	echo '<table><tr><td>Error Occured</td><td>Error Message : '.$e->getMessage().'</td></tr></table>';
 	echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
+	}
+	}
+	else
+	{
+				echo '<form action="DescribeAssetTypeClient.php">';
+				echo '<table class="bordered-table">';
+				echo '<tr><td>Type : </td>
+				<td><input type ="Text" name="type"></input>e.g. ContactGroup</td>
+				</tr>
+				</table>
+				<div><button class="btn warning"  type="submit" value="e">Describe</button></div>
+				</form>';
+				echo '<br>';
+				echo '<form action="../index.php" method="GET"><div><button class="btn success"  type="submit">Back</button></div></form>';
 	}
 }
 else
