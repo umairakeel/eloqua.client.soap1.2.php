@@ -70,7 +70,12 @@ if(isSet($_SESSION['userName']) && isset($_SESSION['password']) && isset($_SESSI
 	}
 	else
 	{
-		print_r($dynamicAssetArr);
+		echo'<tr>';
+		$assetType = $dynamicAssetArr->AssetType;
+		$fieldValueCollection = $dynamicAssetArr->FieldValueCollection;
+		echo '<td>'.$assetType->ID.'</td><td>'.$assetType->Name.'</td><td>'.$assetType->Type.'</td>';
+		echo '<td>';
+		echo '</tr>';		
 	}
 	echo'</table>';	
 	}

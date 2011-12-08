@@ -46,8 +46,8 @@ include ('../EloquaSOAPClient.php');
 				$assetType = $_GET['assetType'];
 				$id = $_GET['id'];
 				$assetType = new AssetType(0, $assetTypeName, $assetType);
-				$assetFields = new AssetFields('name',$assetName);
-				$dynamicAssetFields = new DynamicAssetFields($assetFields);
+				$dynamicAssetFields = new DynamicAssetFields();
+				$dynamicAssetFields->setDynamicAssetField('name',$assetName);
 				$asset = new DynamicAsset($assetType,$dynamicAssetFields,$id);
 				$param = new UpdateAsset(array($asset));
 

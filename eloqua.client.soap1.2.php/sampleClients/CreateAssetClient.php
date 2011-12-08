@@ -16,8 +16,8 @@ include ('../EloquaSOAPClient.php');
 		    <td><h3>PHP Client Code Snippet : <h3></td><td> 
 			<b><br>$client = new EloquaSoapClient($wsdl, $userName, $password,$endPointURL); </br>
 			<br>$assetType = new AssetType(0, \'ContactList\', \'ContactGroup\');</br>
-			<br>$assetFields = new AssetFields(\'name\',$assetName);</br>
-			<br>$dynamicAssetFields = new DynamicAssetFields($entityFields);</br>
+			<br>$dynamicAssetFields = new DynamicAssetFields();</br>
+			<br>$dynamicAssetFields->setDynamicAssetField(\'name\',$assetName)</br>
 			<br>$asset = new DynamicAsset($AssetType,$dynamicAssetFields,null);</br>
 			<br>$param = new CreateAsset(array($asset));</br></b>
 			</td>
@@ -45,15 +45,20 @@ include ('../EloquaSOAPClient.php');
 				$assetTypeName = $_GET['assetTypeName'];
 				$assetType = $_GET['assetType'];
 				$assetType = new AssetType(0, $assetTypeName, $assetType);
-				$assetFields = new AssetFields('name',$assetName);
-				$dynamicAssetFields = new DynamicAssetFields($assetFields);
+				$dynamicAssetFields = new DynamicAssetFields();
+				$dynamicAssetFields->setDynamicAssetField('name',$assetName);
+				
+				if(isSet($_GET['properties']))
+				{
+				eval($_GET['properties']);
+				}
+				
 				$asset = new DynamicAsset($assetType,$dynamicAssetFields,'');
 				$param = new CreateAsset(array($asset));
 
 				# Invoke SOAP Request : CreateAsset ()
 				$response = $client->CreateAsset($param);
 				$createResultID = $response->CreateAssetResult->CreateAssetResult->ID;
-
 				if($createResultID > -1)
 				{
 					echo '<table class="bordered-table">';
@@ -70,6 +75,7 @@ include ('../EloquaSOAPClient.php');
 					echo '</table>';
 					echo '<br>';
 					echo '<br>';
+					echo '<form action="../index.php" method="GET"><div><button class="btn danger"  type="submit" value="Go to Example Page">Back</button></div></form>';
 				}
 			}
 			catch (Exception $e)
@@ -86,7 +92,16 @@ include ('../EloquaSOAPClient.php');
 				<td><input type ="Text" name="assetType"></input> e.g. ContactGroup</td></tr>
 				<tr><td>Asset Type Name : </td><td> <input type ="Text" name="assetTypeName"></input>e.g. ContactList</td></tr>
 				<tr><td>Asset Name : </td><td> <input type ="Text" name="assetName"></input></td></tr>
-				</tr></table> 
+				</tr>
+				<tr>
+				<td>Additional Properties
+				</td>
+				<td>
+				<textarea class="xxlarge" id="properties" name="properties" rows="3"></textarea>
+				$dynamicAssetFields->setDynamicAssetField(\'description\',\'Test\');
+				</td>
+				</tr>
+				</table> 
 				<div><button class="btn warning"  type="submit" value="e">Create</button></div>
 				</form>';
 		echo 	'<form action="../index.php" method="GET"><div><button class="btn success"  type="submit">Back</button></div></form>';

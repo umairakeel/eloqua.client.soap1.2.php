@@ -1229,10 +1229,47 @@ class DynamicActivityFields
    * @param ActivityFields $ActivityFields
    * @access public
    */
-  public function __construct($ActivityFields)
+  public function __construct($ActivityFields=array())
   {
     $this->ActivityFields = $ActivityFields;
   }
+  
+  /**
+  * Adding utility methods to set dynamic activity fields
+  */
+  public function setDynamicActivityField($fieldName,$fieldValue)
+  {
+  foreach ($this->ActivityFields as $key => $fieldVal) 
+		{
+            if ($fieldVal->InternalName === $fieldName) 
+			{
+                $this->ActivityFields[$key]->Value = $fieldValue;
+                return;
+            }
+		}
+	$activityField = new ActivityFields($fieldName,$fieldValue);
+    $this->ActivityFields[] = $activityField;
+  }
+  
+  /**
+  * Adding utility methods to get dynamic activity fields
+  */
+  
+  public function getDynamicActivityField($fieldName)
+  {
+  foreach ($this->ActivityFields as $key => $fieldVal) 
+		{
+            if ($fieldVal->InternalName === $fieldName) 
+			{
+                return $this->ActivityFields[$key]->Value;
+            }
+		}
+   return new stdClass();	
+  }
+  
+  
+  
+  
 
 }
 
@@ -1273,7 +1310,7 @@ class DynamicAsset
     $this->FieldValueCollection = $FieldValueCollection;
     $this->Id = $Id;
   }
-
+  
 }
 
 class DynamicAssetFieldDefinition
@@ -1359,11 +1396,44 @@ class DynamicAssetFields
    * @param AssetFields $AssetFields
    * @access public
    */
-  public function __construct($AssetFields)
+  public function __construct($AssetFields = array())
   {
     $this->AssetFields = $AssetFields;
   }
-
+  
+  /**
+  * Adding utility methods to set dynamic asset fields
+  *
+  *
+  */
+  public function setDynamicAssetField($fieldName,$fieldValue)
+  {
+  foreach ($this->AssetFields as $key => $fieldVal) 
+		{
+            if ($fieldVal->InternalName === $fieldName) 
+			{
+                $this->AssetFields[$key]->Value = $fieldValue;
+                return;
+            }
+		}
+	$assetField = new AssetFields($fieldName,$fieldValue);
+    $this->AssetFields[] = $assetField;
+  }
+  
+  /**
+  * Adding utility methods to get dynamic asset fields
+  */
+  public function getDynamicAssetField($fieldName)
+  {
+  foreach ($this->AssetFields as $key => $fieldVal) 
+		{
+            if ($fieldVal->InternalName === $fieldName) 
+			{
+                return $this->AssetFields[$key]->Value;
+            }
+		}
+   return new stdClass();	
+  }
 }
 
 class DynamicEntity
@@ -1402,8 +1472,9 @@ class DynamicEntity
     $this->EntityType = $EntityType;
     $this->FieldValueCollection = $FieldValueCollection;
     $this->Id = $Id;
-  }
 
+  }
+  
 }
 
 
@@ -1508,9 +1579,44 @@ class DynamicEntityFields
    * @param EntityFields $EntityFields
    * @access public
    */
-  public function __construct($EntityFields)
+  public function __construct($EntityFields=array())
   {
     $this->EntityFields = $EntityFields;
+  }
+  
+  /**
+  * Adding utility methods to set dynamic entity fields
+  *
+  *
+  */
+  public function setDynamicEntityField($fieldName,$fieldValue)
+  {
+  foreach ($this->EntityFields as $key => $fieldVal) 
+		{
+            if ($fieldVal->InternalName === $fieldName) 
+			{
+                $this->EntityFields[$key]->Value = $fieldValue;
+                return;
+            }
+		}
+	$entityField = new EntityFields($fieldName,$fieldValue);
+    $this->EntityFields[] = $entityField;
+	
+  }
+  
+  /**
+  * Adding utility methods to get dynamic entity fields
+  */
+  public function getDynamicEntityField($fieldName)
+  {
+  foreach ($this->EntityFields as $key => $fieldVal) 
+		{
+            if ($fieldVal->InternalName === $fieldName) 
+			{
+                return $this->EntityFields[$key]->Value;
+            }
+		}
+   return new stdClass();	
   }
 
 }

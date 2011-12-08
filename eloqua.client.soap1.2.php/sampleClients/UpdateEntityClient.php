@@ -26,8 +26,8 @@ try
 	$client = new EloquaSoapClient($wsdl, $userName, $password,$endPointURL);
 
 	$entityType = new EntityType(0, 'Contact', 'Base');
-	$entityFields = new EntityFields('C_EmailAddress','syed.naqvi11112@eloqua.com');
-	$dynamicEntityFields = new DynamicEntityFields($entityFields);
+	$dynamicEntityFields = new DynamicEntityFields();
+	$dynamicEntityFields->setDynamicEntityField('C_EmailAddress',$client_email_Address);
 	$entity = new DynamicEntity($entityType,$dynamicEntityFields,'1642087');
 	$param = new Update(array($entity));
 	# Invoke SOAP Request : Create ()

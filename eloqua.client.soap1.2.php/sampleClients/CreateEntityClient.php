@@ -16,8 +16,8 @@ echo  '		<div align="Center">
 			<td><h3>PHP Client Code Snippet : <h3></td><td> 
 			<b><br>$client = new EloquaSoapClient($wsdl, $userName, $password,$endPointURL); </br>
 			<br>$entityType = new EntityType(0, \'Contact\', \'Base\');</br>
-			<br>$entityFields = new EntityFields(\'C_EmailAddress\',$client_email_Address);</br>
-			<br>$dynamicEntityFields = new DynamicEntityFields($entityFields);</br>
+			<br>$dynamicEntityFields = new DynamicEntityFields();</br>
+			<br>$dynamicEntityFields->setDynamicEntityField(\'C_EmailAddress\',$client_email_Address);</br>
 			<br>$entity = new DynamicEntity($entityType,$dynamicEntityFields,null);</br>
 			<br>$param = new Create(array($entity));</br></b>
 			</td>
@@ -45,9 +45,13 @@ echo  '		<div class="container">';
 			
 			#Create Request Object for Creating Entity
 			$client_email_Address = $_GET["email"];
-			$entityType = new EntityType(0, 'Contact', 'Base');
-			$entityFields = new EntityFields('C_EmailAddress',$client_email_Address);
-			$dynamicEntityFields = new DynamicEntityFields($entityFields);
+			$entityType = new EntityType(0, 'Contact', 'Base');	
+			$dynamicEntityFields = new DynamicEntityFields();
+			$dynamicEntityFields->setDynamicEntityField('C_EmailAddress',$client_email_Address);
+			if(isSet($_GET['properties']))
+			{
+				eval($_GET['properties']);
+			}
 			$entity = new DynamicEntity($entityType,$dynamicEntityFields,null);
 			$param = new Create(array($entity));
 
@@ -91,6 +95,14 @@ echo  '		<div class="container">';
 				echo '<table class="bordered-table">';
 				echo '<tr><td>Email Address : </td>
 				<td><input type ="Text" name="email"></input></td>
+				</tr>
+				<tr>
+				<td>Additional Properties
+				</td>
+				<td>
+				<textarea class="xxlarge" id="properties" name="properties" rows="3"></textarea>
+				$dynamicEntityFields->setDynamicEntityField(\'C_FirstName\',\'Test\');
+				</td>
 				</tr>
 				</table>
 				<div><button class="btn warning"  type="submit" value="e">Create</button></div>
