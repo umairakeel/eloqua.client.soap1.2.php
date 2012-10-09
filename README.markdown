@@ -15,20 +15,6 @@ Pre-requisites
 - Must have an account on GitHub.com in order to get the project.
 - Have Git installed and configured if you want to access the reposiroty using Git.(Optional)
   
-Get Access to Project 
----------------------
-For getting access to the project please email **syed.naqvi@eloqua.com/ umair.akeel@eloqua.com** providing your GitHub.com user Id.
-
-- Download the project as a zip file from GitHub.com or can clone the repository using ssh or https
-
-	- Direct Download  Access:
-	   -   Please go to the Link : [GitHub.com]
-	   -   Press the zip button to download the project as a zip file.
-
-	- Using Git:
-	   -    Please run the following command on Git to fetch the project repository
-	   -    **git clone git@github.com:Eloqua/eloqua.client.soap1.2.php.git**
-
 
 Installation
 ------------
